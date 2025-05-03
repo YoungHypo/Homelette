@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token
 from app.models.user import User
-from app.services.user_service import create_user, validate_user
+from app.services.User import create_user, validate_user
 from app import db
 import email_validator
 
