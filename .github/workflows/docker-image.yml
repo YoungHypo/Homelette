@@ -3,18 +3,8 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - 'backend/Dockerfile'
-      - 'backend/docker-compose.yml'
-      - 'backend/requirements.txt'
-      - 'backend/entrypoint.sh'
   pull_request:
     branches: [ "main" ]
-    paths:
-      - 'backend/Dockerfile'
-      - 'backend/docker-compose.yml'
-      - 'backend/requirements.txt'
-      - 'backend/entrypoint.sh'
 
 jobs:
   docker-lint:
