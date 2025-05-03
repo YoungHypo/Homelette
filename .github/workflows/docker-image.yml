@@ -21,7 +21,7 @@ jobs:
     
     - name: Validate docker-compose.yml
       run: |
-        docker-compose -f backend/docker-compose.yml config -q
+        docker compose -f backend/docker-compose.yml config -q
     
   docker-build:
     runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
     - name: Test Docker Compose
       run: |
         cd backend
-        docker-compose up -d
+        docker compose up -d
         
         # Wait for containers to start
         sleep 20
@@ -54,13 +54,13 @@ jobs:
         # Check if containers are running
         if [ "$(docker-compose ps -q flask | wc -l)" -eq 0 ]; then
           echo "Flask container failed to start"
-          docker-compose logs
+          docker compose logs
           exit 1
         fi
         
         if [ "$(docker-compose ps -q mariadb | wc -l)" -eq 0 ]; then
           echo "MariaDB container failed to start"
-          docker-compose logs
+          docker compose logs
           exit 1
         fi
         
@@ -68,10 +68,10 @@ jobs:
         FLASK_STATUS=$(docker-compose exec -T flask curl -s -o /dev/null -w "%{http_code}" http://localhost:5000/ || echo "Failed")
         if [ "$FLASK_STATUS" != "404" ] && [ "$FLASK_STATUS" != "200" ]; then
           echo "Flask API is not responding correctly (status: $FLASK_STATUS)"
-          docker-compose logs flask
+          docker compose logs flask
           exit 1
         fi
         
         echo "Docker Compose test successful!"
-        docker-compose down
+        docker compose down
       continue-on-error: true 
