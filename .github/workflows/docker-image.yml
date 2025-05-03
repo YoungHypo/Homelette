@@ -52,20 +52,20 @@ jobs:
         sleep 20
         
         # Check if containers are running
-        if [ "$(docker-compose ps -q flask | wc -l)" -eq 0 ]; then
+        if [ "$(docker compose ps -q flask | wc -l)" -eq 0 ]; then
           echo "Flask container failed to start"
           docker compose logs
           exit 1
         fi
         
-        if [ "$(docker-compose ps -q mariadb | wc -l)" -eq 0 ]; then
+        if [ "$(docker compose ps -q mariadb | wc -l)" -eq 0 ]; then
           echo "MariaDB container failed to start"
           docker compose logs
           exit 1
         fi
         
         # Check if Flask is responding
-        FLASK_STATUS=$(docker-compose exec -T flask curl -s -o /dev/null -w "%{http_code}" http://localhost:5000/ || echo "Failed")
+        FLASK_STATUS=$(docker compose exec -T flask curl -s -o /dev/null -w "%{http_code}" http://localhost:5000/ || echo "Failed")
         if [ "$FLASK_STATUS" != "404" ] && [ "$FLASK_STATUS" != "200" ]; then
           echo "Flask API is not responding correctly (status: $FLASK_STATUS)"
           docker compose logs flask
