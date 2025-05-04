@@ -15,44 +15,44 @@ This service focuses on maintaining **WebSocket** connections and processing rea
 
 ### Connection Events
 
-| Event | Direction | Payload | Description |
-|-------|-----------|---------|-------------|
-| `connect` | Client → Server | `{ token: "JWT_TOKEN" }` | Establishes WebSocket connection using JWT authentication |
-| `disconnect` | Client → Server | None | Terminates WebSocket connection |
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `connect` | `{ token: "JWT_TOKEN" }` | Establishes WebSocket connection using JWT authentication |
+| `disconnect` | None | Terminates WebSocket connection |
 
 ### User Status Events
 
-| Event | Direction | Payload | Description |
-|-------|-----------|---------|-------------|
-| `user_online` | Server → Client | `{ user_id: "uuid" }` | Notifies clients when a user comes online |
-| `user_offline` | Server → Client | `{ user_id: "uuid" }` | Notifies clients when a user goes offline |
-| `online_users` | Server → Client | `{ users: ["user_id1", "user_id2", ...] }` | Sends the complete list of currently online users |
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `user_online` | `{ user_id: "uuid" }` | Notifies clients when a user comes online |
+| `user_offline` | `{ user_id: "uuid" }` | Notifies clients when a user goes offline |
+| `online_users` | `{ users: ["user_id1", "user_id2", ...] }` | Sends the complete list of currently online users |
 
 ### Chat Room Events
 
-| Event | Direction | Payload | Description |
-|-------|-----------|---------|-------------|
-| `join_conversation` | Client → Server | `{ conversation_id: "uuid" }` | User joins a specific conversation room |
-| `leave_conversation` | Client → Server | `{ conversation_id: "uuid" }` | User leaves a specific conversation room |
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `join_conversation` | `{ conversation_id: "uuid" }` | User joins a specific conversation room |
+| `leave_conversation` | `{ conversation_id: "uuid" }` | User leaves a specific conversation room |
 
 ### Messaging Events
 
-| Event | Direction | Payload | Description |
-|-------|-----------|---------|-------------|
-| `private_message` | Client → Server | `{ sender_id: "uuid", recipient_id: "uuid", content: "message" }` | Sends a direct message to a specific user |
-| `conversation_message` | Client → Server | `{ sender_id: "uuid", conversation_id: "uuid", content: "message" }` | Sends a message to all users in a conversation |
-| `message_delivered` | Server → Client | Message object with all metadata | Confirms message delivery and provides complete message details |
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `private_message` | `{ sender_id: "uuid", recipient_id: "uuid", content: "message" }` | Sends a direct message to a specific user |
+| `conversation_message` | `{ sender_id: "uuid", conversation_id: "uuid", content: "message" }` | Sends a message to all users in a conversation |
+| `message_delivered` | Message object with all metadata | Confirms message delivery and provides complete message details |
 
 ### UI Interaction Events
 
-| Event | Direction | Payload | Description |
-|-------|-----------|---------|-------------|
-| `typing` | Client → Server | `{ user_id: "uuid", recipient_id: "uuid" OR conversation_id: "uuid", is_typing: boolean }` | Indicates user is typing (or stopped typing) |
-| `user_typing` | Server → Client | `{ user_id: "uuid", is_typing: boolean }` | Notifies that a user is typing in the conversation |
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `typing` | `{ user_id: "uuid", recipient_id: "uuid" OR conversation_id: "uuid", is_typing: boolean }` | Indicates user is typing (or stopped typing) |
+| `user_typing` | `{ user_id: "uuid", is_typing: boolean }` | Notifies that a user is typing in the conversation |
 
 ## Notes
 
-- This service is designed to work behind an Nginx proxy
-- Multiple instances can be deployed with Redis as the message queue
+- This service is designed to work behind an **Nginx** proxy
+- Multiple instances can be deployed with **Redis** as the message queue
 - No direct API endpoints are exposed - all communication is through WebSocket events
-- Database models are shared with the API service, but migrations should be performed via the API service
+- Database models are shared with the API service, but **migrations** should be performed via the API service
