@@ -3,7 +3,6 @@
 # define variables
 DOCKER_COMPOSE = docker compose -f backend/docker-compose.yml
 DOCKER_BUILD = docker build -f backend/Dockerfile
-message = "Initial migration"
 
 .PHONY: help
 help:
