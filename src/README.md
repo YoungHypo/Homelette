@@ -1,17 +1,17 @@
-# Homelette Source Code Structure
+# Homelette Design & Structure
 
 This directory contains all backend source code for the Homelette project.
 
 ## System Architecture
 
 ```
-                 ┌─── backend-api (REST API Service)
-                 │      ↓ ↑
-Client → Nginx Proxy ┤      MariaDB
-                 │      ↑ ↓
-                 └─── backend-socket (WebSocket Service)
-                        ↑ ↓
-                        Redis
+                 ┌─── backend-api (REST API)
+                 │         ↓ ↑
+Client → Nginx Proxy ┤    MariaDB
+                 │         ↑ ↓
+                 └─── backend-socket (WebSocket)
+                           ↑ ↓
+                          Redis
 ```
 
 ## Service Components
@@ -31,17 +31,17 @@ All API requests and WebSocket connections are accessed through the Nginx proxy:
 
 ## Directory Structure
 
-- **backend-api/**: Contains REST API related code
+- **backend-api/**:
   - Handles all HTTP requests
   - Implements RESTful API endpoints
   - Contains all data model definitions
 
-- **backend-socket/**: Contains WebSocket related code
+- **backend-socket/**:
   - Manages real-time WebSocket connections
   - Implements chat functionality
   - Manages real-time message broadcasting
 
-- **nginx/**: Contains Nginx reverse proxy configuration
+- **nginx/**:
   - Routes requests to appropriate services
   - Configures WebSocket proxy settings
 
@@ -69,5 +69,20 @@ make migrate message="Describe your changes"
 make migrate-create message="Describe your changes"
 make migrate-apply
 ```
+
+### Continuous Integration
+
+The project uses GitHub Actions for CI/CD processes to ensure code quality and reliability:
+
+```bash
+# CI checks include:
+# - Building all Docker images
+# - Starting the services
+# - Verifying container health
+# - Testing API endpoints
+```
+
+- **Location**: `.github/workflows/docker-image.yml`
+- **Trigger**: Automatically runs on push to main branch and pull requests
 
 
