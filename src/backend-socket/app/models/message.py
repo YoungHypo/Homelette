@@ -52,7 +52,7 @@ class Conversation(db.Model):
             'created_at': self.created_at.isoformat(),
             'updated_at': self.updated_at.isoformat(),
             'title': self.title,
-            'participants': [user.to_dict(basic=True) for user in self.participants]
+            'participants': [user.to_dict() for user in self.participants]
         }
 
 class ConversationParticipant(db.Model):

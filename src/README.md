@@ -70,9 +70,9 @@ make migrate-create message="Describe your changes"
 make migrate-apply
 ```
 
-### Continuous Integration
+## Continuous Integration
 
-The project uses GitHub Actions for CI/CD processes to ensure code quality and reliability:
+The project uses GitHub Actions for **CI/CD** processes to ensure code quality and reliability:
 
 ```bash
 # CI checks include:
