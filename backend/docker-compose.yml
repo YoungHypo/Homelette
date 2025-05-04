@@ -18,6 +18,15 @@ services:
     networks:
       - homelette-network
 
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - homelette-network
+
   flask:
     build: 
       context: .
@@ -26,6 +35,7 @@ services:
     restart: always
     depends_on:
       - mariadb
+      - redis
     ports:
       - "5001:5000"
     environment:
@@ -34,6 +44,7 @@ services:
       DATABASE_URL: "mysql+pymysql://homelette_user:123aaa@mariadb/homelette"
       JWT_SECRET_KEY: "super-secret-key-change-in-production"
       FLASK_ENV: "development"
+      REDIS_URL: "redis://redis:6379/0"
     volumes:
       - .:/app
     networks:

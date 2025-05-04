@@ -21,4 +21,11 @@ class Config:
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max upload size
     
     # CORS configuration
-    CORS_HEADERS = 'Content-Type' 
+    CORS_HEADERS = 'Content-Type'
+    
+    # Redis configuration
+    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://localhost:6379/0'
+    
+    # SocketIO configuration
+    SOCKETIO_ASYNC_MODE = 'eventlet'
+    SOCKETIO_CORS_ALLOWED_ORIGINS = '*' 
