@@ -18,9 +18,6 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
     
-    # ensure upload directory exists
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    
     # initialize extensions
     db.init_app(app)
     migrate.init_app(app, db)
