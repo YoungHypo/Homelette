@@ -1,7 +1,7 @@
 #!/bin/sh
 
-echo "waiting for database..."
-sleep 10
+echo "Starting SocketIO application on port 5000..."
 
-echo "starting SocketIO application..."
-exec gunicorn --worker-class eventlet --bind 0.0.0.0:5000 run:app 
+export PYTHONUNBUFFERED=1
+
+exec python run.py 
