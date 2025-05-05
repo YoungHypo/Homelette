@@ -35,9 +35,18 @@ def create_app(config_class=None):
     migrate.init_app(app, db)
     jwt.init_app(app)
     CORS(app)
+
     # use redis as message queue
     socketio.init_app(app, message_queue=app.config['REDIS_URL'])
     
+    # Import models - important to do this before events
+    # to ensure all models are registered with SQLAlchemy
+    from app.models.user import User, UserInterest
+    from app.models.property import Property, Address
+    from app.models.listing import Listing
+    from app.models.message import Message, Conversation, ConversationParticipant
+    
+    # Import events after models are loaded
     from app import events
     
     return app

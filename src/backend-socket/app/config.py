@@ -20,7 +20,7 @@ class Config:
     # CORS configuration
     CORS_HEADERS = 'Content-Type'
     
-    # redis configuration
+    # Redis configuration
     REDIS_IP = os.environ.get('REDIS_IP')
     REDIS_URL = f'redis://{REDIS_IP}:6379/0'
     
