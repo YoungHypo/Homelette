@@ -12,6 +12,7 @@ yarn-error.log*
 .idea/
 
 .env
+.DS_Store
 
 # Temporary files
 *.tmp

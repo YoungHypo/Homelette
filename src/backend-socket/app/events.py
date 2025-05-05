@@ -1,11 +1,15 @@
 from flask import request
 from flask_socketio import emit, join_room, leave_room
 from flask_jwt_extended import decode_token
-from app.models.message import Message, Conversation
 from app.models.user import User
+from app.models.message import Message, Conversation
 from app import socketio, db
 import uuid
 from datetime import datetime
+import logging
+import pymysql
+
+logger = logging.getLogger(__name__)
 
 # mapping of online users and their socket ids
 online_users = {}
@@ -13,27 +17,40 @@ online_users = {}
 @socketio.on('connect')
 def handle_connect():
     try:
+        logger.info("WebSocket connection received")
         # get token from query parameters
         token = request.args.get('token')
+
         if not token:
-            return False  # reject connection
+            logger.error("Error: WebSocket connection without token")
+            return False
         
         # parse JWT token
-        decoded_token = decode_token(token)
-        user_id = decoded_token['sub']
+        try:
+            decoded_token = decode_token(token)
+            user_id = decoded_token['sub']
+            logger.info(f"Token decoded, user_id: {user_id}")
+        except Exception as e:
+            logger.error(f"Error: Token parsing error - {str(e)}")
+            return False
         
         # validate user
-        user = User.query.get(user_id)
-        if not user:
-            return False  # reject connection
+        try:
+            user = User.query.get(user_id)
+            if not user:
+                logger.error(f"Error: User {user_id} does not exist")
+                return False  # reject connection
+        except pymysql.err.OperationalError as e:
+            logger.error(f"Error: Database connection error - {str(e)}")
+        except Exception as e:
+            logger.error(f"Error: User query error - {str(e)}")
+            return False
         
         # mark user as online
         online_users[user_id] = request.sid
         
         # join user's own room (for receiving private messages)
         join_room(user_id)
-        
-        print(f"user {user_id} connected")
         
         # broadcast user online message to all connected clients
         emit('user_online', {'user_id': user_id}, broadcast=True)
@@ -43,7 +60,7 @@ def handle_connect():
         
         return True
     except Exception as e:
-        print(f"connection error: {str(e)}")
+        logger.error(f"Error: WebSocket connection failed - {str(e)}")
         return False
 
 @socketio.on('disconnect')
@@ -51,7 +68,7 @@ def handle_disconnect():
     for user_id, sid in list(online_users.items()):
         if sid == request.sid:
             del online_users[user_id]
-            print(f"user {user_id} disconnected")
+            logger.info(f"user {user_id} disconnected")
             emit('user_offline', {'user_id': user_id}, broadcast=True)
             break
 
@@ -62,7 +79,7 @@ def handle_join_conversation(data):
         return
     
     join_room(conversation_id)
-    print(f"user {request.sid} joined conversation {conversation_id}")
+    logger.info(f"user {request.sid} joined conversation {conversation_id}")
 
 @socketio.on('leave_conversation')
 def handle_leave_conversation(data):
@@ -71,7 +88,7 @@ def handle_leave_conversation(data):
         return
     
     leave_room(conversation_id)
-    print(f"user {request.sid} left conversation {conversation_id}")
+    logger.info(f"user {request.sid} left conversation {conversation_id}")
 
 @socketio.on('private_message')
 def handle_private_message(data):
