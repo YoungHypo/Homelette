@@ -3,7 +3,8 @@ from datetime import timedelta
 
 class Config:
     # database configuration
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///app.db'
+    MARIADB_IP = os.environ.get('MARIADB_IP')
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://homelette_user:123aaa@{MARIADB_IP}/homelette'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # ensure database migrations are automatically applied
@@ -19,8 +20,9 @@ class Config:
     # CORS configuration
     CORS_HEADERS = 'Content-Type'
     
-    # Redis configuration
-    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://redis:6379/0'
+    # redis configuration
+    REDIS_IP = os.environ.get('REDIS_IP')
+    REDIS_URL = f'redis://{REDIS_IP}:6379/0'
     
     # Debug mode
     DEBUG = True

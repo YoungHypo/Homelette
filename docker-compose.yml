@@ -16,7 +16,7 @@ services:
       - mariadb_data:/var/lib/mysql
       - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - homelette-network
+      - network
 
   redis:
     image: redis:alpine
@@ -25,7 +25,7 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - homelette-network
+      - network
 
   flask-api:
     build: 
@@ -47,7 +47,7 @@ services:
       - ./src/backend-api:/app
       - uploads_data:/app/uploads
     networks:
-      - homelette-network
+      - network
 
   flask-socket:
     build: 
@@ -68,7 +68,7 @@ services:
     volumes:
       - ./src/backend-socket:/app
     networks:
-      - homelette-network
+      - network
 
   nginx:
     image: nginx:alpine
@@ -83,10 +83,10 @@ services:
       - ./src/nginx/nginx.conf:/etc/nginx/nginx.conf
       - uploads_data:/app/uploads
     networks:
-      - homelette-network
+      - network
 
 networks:
-  homelette-network:
+  network:
     driver: bridge
 
 volumes:
