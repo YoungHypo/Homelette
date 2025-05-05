@@ -1,12 +1,10 @@
 # Homelette Backend API
 
-Homelette is a mobile application platform targeting short-term rental needs of college students, aiming to solve the lack of convenient communication channels between landlords and renters. 
 This directory contains the API service of Homelette, responsible for handling all **HTTP** requests.
 
 ## Deployment
 
 - **Port**: Service exposed on port 5001
-- **Direct Access**: API endpoints are directly accessible without a proxy
 - **Authentication**: JWT-based authentication is used for securing endpoints
 
 ## API Documentation
@@ -50,7 +48,6 @@ This directory contains the API service of Homelette, responsible for handling a
 ## Database Management
 
 - Homelette uses MariaDB relational database with SQLAlchemy ORM for data access
-- The API service is responsible for all database migrations
 - Both API and Socket services share the same database models and schema
 
 ## Database Design
