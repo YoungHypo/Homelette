@@ -68,25 +68,27 @@ jobs:
           exit 1
         fi
         
-        if [ "$(docker compose ps -q nginx | wc -l)" -eq 0 ]; then
-          echo "Nginx container failed to start"
-          docker compose logs nginx
-          exit 1
-        fi
-        
-        # Check if API is responding via Nginx
-        HEALTH_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/health || echo "Failed")
+        # Check if API is responding directly
+        HEALTH_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5001/health || echo "Failed")
         if [ "$HEALTH_STATUS" != "200" ]; then
           echo "Health check failed (status: $HEALTH_STATUS)"
-          docker compose logs
+          docker compose logs flask-api
           exit 1
         fi
         
         # Check if API endpoints are accessible
-        API_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/api/listings || echo "Failed")
+        API_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5001/api/listings || echo "Failed")
         if [ "$API_STATUS" != "200" ]; then
           echo "API endpoints check failed (status: $API_STATUS)"
           docker compose logs flask-api
+          exit 1
+        fi
+        
+        # Check if Socket service is running
+        SOCKET_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5002/socket || echo "Failed")
+        if [ "$SOCKET_STATUS" != "404" ]; then
+          echo "Socket service check failed (status: $SOCKET_STATUS)"
+          docker compose logs flask-socket
           exit 1
         fi
         

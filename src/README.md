@@ -5,29 +5,28 @@ This directory contains all backend source code for the Homelette project.
 ## System Architecture
 
 ```
-                 ┌─── backend-api (REST API)
-                 │         ↓ ↑
-Client → Nginx Proxy ┤    MariaDB
-                 │         ↑ ↓
-                 └─── backend-socket (WebSocket)
-                           ↑ ↓
-                          Redis
+           ┌─── backend-api (REST API, port 5001)
+           │         ↓ ↑
+Client ────┤       MariaDB 
+           │         ↑ ↓
+           └─── backend-socket (WebSocket, port 5002)
+                     ↑ ↓
+                    Redis
 ```
 
 ## Service Components
 
-- **Nginx**: Reverse proxy server that routes different types of requests to corresponding backend services
-- **flask-api**: Handles REST API requests and data processing
-- **flask-socket**: Handles WebSocket connections and real-time chat functionality
+- **flask-api**: Handles REST API requests and data processing (exposed on port 5001)
+- **flask-socket**: Handles WebSocket connections and real-time chat functionality (exposed on port 5002)
 - **mariadb**: Database service for persistent storage
 - **redis**: Message queue and shared storage for WebSocket communications
 
 ## Access Methods
 
-All API requests and WebSocket connections are accessed through the Nginx proxy:
+Each service is accessed directly through its dedicated port:
 
-- **REST API**: http://localhost/api/...
-- **WebSocket**: http://localhost/socket.io/...
+- **REST API**: http://localhost:5001/api/...
+- **WebSocket**: http://localhost:5002/socket
 
 ## Directory Structure
 
@@ -40,10 +39,7 @@ All API requests and WebSocket connections are accessed through the Nginx proxy:
   - Manages real-time WebSocket connections
   - Implements chat functionality
   - Manages real-time message broadcasting
-
-- **nginx/**:
-  - Routes requests to appropriate services
-  - Configures WebSocket proxy settings
+  - Uses Gunicorn with Eventlet for improved performance
 
 ## Development Guide
 
