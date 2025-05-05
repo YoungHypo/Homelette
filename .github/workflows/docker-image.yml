@@ -19,8 +19,8 @@ jobs:
     - name: Build Flask API image
       uses: docker/build-push-action@v5
       with:
-        context: ./src/backend-api
-        file: ./src/backend-api/Dockerfile
+        context: ./flask/backend-api
+        file: ./flask/backend-api/Dockerfile
         push: false
         tags: homelette-flask-api:test
         cache-from: type=gha
@@ -29,8 +29,8 @@ jobs:
     - name: Build Flask Socket image
       uses: docker/build-push-action@v5
       with:
-        context: ./src/backend-socket
-        file: ./src/backend-socket/Dockerfile
+        context: ./flask/backend-socket
+        file: ./flask/backend-socket/Dockerfile
         push: false
         tags: homelette-flask-socket:test
         cache-from: type=gha

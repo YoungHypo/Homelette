@@ -28,11 +28,11 @@ jobs:
     # install dependencies
     - name: Install dependencies
       run: npm install
-      working-directory: ./Homelette
+      working-directory: ./react-native
 
     # test core code
     - name: Test Expo Start
       run: |
         npx expo start --no-dev &
         sleep 15
-      working-directory: ./Homelette
+      working-directory: ./react-native

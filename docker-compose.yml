@@ -29,7 +29,7 @@ services:
 
   flask-api:
     build: 
-      context: ./src/backend-api
+      context: ./flask/backend-api
       dockerfile: Dockerfile
     container_name: flask-api
     restart: always
@@ -46,14 +46,14 @@ services:
       FLASK_ENV: "development"
       REDIS_URL: "redis://redis:6379/0"
     volumes:
-      - ./src/backend-api:/app
+      - ./flask/backend-api:/app
       - uploads_data:/app/uploads
     networks:
       - network
 
   flask-socket:
     build: 
-      context: ./src/backend-socket
+      context: ./flask/backend-socket
       dockerfile: Dockerfile
     container_name: flask-socket
     restart: always
@@ -72,7 +72,7 @@ services:
       MARIADB_IP: "${MARIADB_IP:-mariadb}"
       REDIS_IP: "${REDIS_IP:-redis}"
     volumes:
-      - ./src/backend-socket:/app
+      - ./flask/backend-socket:/app
     networks:
       - network
 
