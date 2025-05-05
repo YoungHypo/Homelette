@@ -8,29 +8,55 @@ To get started with the Homelette App, follow these steps:
 
 ### Prerequisites
 * Ensure you have Node.js installed.
+* Ensure you have Python 3.9+ installed for the backend services.
+* Ensure you have Docker and Docker Compose installed for containerized deployment.
+
+### Frontend Setup
 
 * Install Expo CLI globally by running:
 ```
 npm install -g expo-cli
 ```
-Clone the repository and navigate to the project directory:
+
+* Clone the repository and navigate to the project directory:
 ```
-git clone https://github.com/ucsb-cs184-f24/team14sublet.git
-cd react-native
+git clone https://github.com/YoungHypo/Homelette.git
+cd Homelette
 ```
 
-Install the necessary dependencies:
+* Install frontend dependencies:
 ```
+cd react-native
 npm install
 ```
 
-### Running the App Locally
+### Backend Setup
 
-* Start the development server:
+* Install backend dependencies:
 ```
+cd flask/backend-api
+pip install -r requirements.txt
+
+cd ../backend-socket
+pip install -r requirements.txt
+```
+
+### Running Locally
+
+```
+cd react-native
 expo start
 ```
-* Follow the instructions provided by Expo to run the app on your connected device or an emulator.
+
+To run the entire application stack:
+
+```
+docker-compose up -d
+```
+
+This will start:
+- Flask API backend on port 5001
+- Flask WebSocket backend on port 5002
 
 ### Installation of the APK (v1.1.0-project-demo)
 
@@ -43,6 +69,7 @@ expo start
 * You can navigate the app using the navigation bar at the bottom of the screen
 * Leases can be posted on the Post page
 * Leases can be viewed on the Rent page
+* Real-time chat between users
 * The user can sign out via the button on the Home page
 * Profile details can be viewed on the Profile page
 
@@ -50,11 +77,27 @@ expo start
 
 # Tech Stack
 
-- Development framework: React Native (Expo).
-- Database: Firestore.
-- Cloud Storage: Firebase Storage.
-- Authentication Service: Firebase Authentication.
-- Push Messaging: Firebase Cloud Messaging.
+## Frontend
+- Development framework: React Native (Expo)
+- UI Components: React Native Paper
+- Maps: React Native Maps
+- Image Handling: Expo Image Picker
+- Storage: Async Storage
+
+## Backend
+- API Server: Flask (Python)
+- Real-time Communication: Flask-SocketIO with Eventlet
+- Authentication: JWT (JSON Web Tokens)
+- Database: MariaBD
+- ORM: SQLAlchemy
+
+## Infrastructure
+- Containerization: Docker & Docker Compose
+- CI/CD: GitHub Actions
+
+## Cloud Services (Previous Version)
+- Database: Firestore
+- Cloud Storage: Firebase Storage
 
 # App Planning
 
@@ -65,6 +108,10 @@ expo start
 - I want to be able to filter by price, roommate count, amenities include (water, electricity, Wi-Fi), distance from school.
 - I want to be able to view a Zillow-like map of clickable posted properties.
 - I want to chat with potential subletters.
+- I want to receive real-time notifications when I get new messages.
+- I want to see when someone is typing a message to me.
+- I want to see when my messages have been delivered and read.
+- I want to be able to share images and location pins in chat.
 - I want to favorite/unfavorite listings on the RentPage and view my favorited listings in a favorited listings page.
 
 ## As a subletter
@@ -72,19 +119,30 @@ expo start
 - I want to be able to view the status of posted listings (e.g. number of times viewed, number of people interested).
 - I want to be able to edit or delete my listing information (e.g. change the rent or add a description).
 - I want to receive instant notifications when someone is interested in my listings so that I can respond quickly to potential subleasers.
+- I want to manage multiple conversations with different interested subtenants simultaneously.
+- I want to see my chat history with potential subtenants when I come back to the app.
 
 ## As a user
 - I want manuals or tutorials of how to use the app.
 - I want to be able to edit various details about my profile, such as my password, profile picture, and class info.
+- I want to set my online/offline status to control my visibility to other users.
+- I want to see which users are currently online.
+- I want to search through my message history with a specific user.
 
 # Project Team
 
-## Frontend
+This project was originally developed by a team of students at UCSB. It is now maintained by:
+
+- Haibo Yang ([@YoungHypo](https://github.com/YoungHypo)) - Full Stack Developer
+
+## Original Contributors
+
+### Frontend
 - Jonathan Herring - @jonathan-herring
 - Collin Qian - @CollinQ
 - Haibo Yang - @YoungHypo
 
-## Backend
+### Backend
 - Allen Qiu - @aqiu04
 - Amy Wang - @awaang
 - Jason Vu - @Firoc
