@@ -1,6 +1,7 @@
 # Homelette Design & Structure
 
-Homelette is a mobile app designed to connect subletters with subtenants in Isla Vista. This directory contains all **backend source code** for the project.
+Homelette is a mobile app designed to connect subletters with subtenants in Isla Vista. 
+This directory contains all **backend source code** for the project.
 
 ## System Architecture
 
