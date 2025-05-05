@@ -58,15 +58,16 @@ services:
     depends_on:
       - mariadb
       - redis
+    env_file:
+      - ./.env
     environment:
       FLASK_APP: run.py
       FLASK_DEBUG: "true"
-      DATABASE_URL: "mysql+pymysql://homelette_user:123aaa@mariadb/homelette"
       JWT_SECRET_KEY: "super-secret-key-change-in-production"
       FLASK_ENV: "development"
-      REDIS_URL: "redis://redis:6379/0"
     volumes:
       - ./src/backend-socket:/app
+      - ./.env:/app/.env
     networks:
       - network
 
