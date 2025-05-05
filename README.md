@@ -16,7 +16,7 @@ npm install -g expo-cli
 Clone the repository and navigate to the project directory:
 ```
 git clone https://github.com/ucsb-cs184-f24/team14sublet.git
-cd homelette
+cd react-native
 ```
 
 Install the necessary dependencies:

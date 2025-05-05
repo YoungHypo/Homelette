@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Homelette",
-    "slug": "Homelette",
+    "name": "React Native",
+    "slug": "react-native-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -14,14 +14,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.homelette.app"
+      "bundleIdentifier": "com.react-native.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.homelette.app",
+      "package": "com.react.native.app",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyCVsuSPlVbAHwQNkMS6ui8Pni2NJQ_UMb8"
