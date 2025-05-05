@@ -73,8 +73,6 @@ This will start:
 * The user can sign out via the button on the Home page
 * Profile details can be viewed on the Profile page
 
-### Known Problems
-
 # Tech Stack
 
 ## Frontend
@@ -98,8 +96,6 @@ This will start:
 ## Cloud Services (Previous Version)
 - Database: Firestore
 - Cloud Storage: Firebase Storage
-
-# App Planning
 
 # User Stories
 

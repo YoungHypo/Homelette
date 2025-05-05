@@ -1,6 +1,6 @@
 # Homelette Design & Structure
 
-Homelette is a mobile app designed to connect subletters with subtenants in Isla Vista. This directory contains all backend source code for the project.
+Homelette is a mobile app designed to connect subletters with subtenants in Isla Vista. This directory contains all **backend source code** for the project.
 
 ## System Architecture
 
@@ -16,8 +16,8 @@ Client ────┤       MariaDB
 
 ## Service Components
 
-- **flask-api**: Handles REST API requests and data processing (exposed on port 5001)
-- **flask-socket**: Handles WebSocket connections and real-time chat functionality (exposed on port 5002)
+- **flask-api**: Handles REST API requests and data processing
+- **flask-socket**: Handles WebSocket connections and real-time chat
 - **mariadb**: Database service for persistent storage
 - **redis**: Message queue and shared storage for WebSocket communications
 
@@ -25,21 +25,8 @@ Client ────┤       MariaDB
 
 Each service is accessed directly through its dedicated port:
 
-- **REST API**: http://localhost:5001/api/...
+- **REST API**: http://localhost:5001/api/
 - **WebSocket**: http://localhost:5002/socket
-
-## Directory Structure
-
-- **backend-api/**:
-  - Handles all HTTP requests
-  - Implements RESTful API endpoints
-  - Contains all data model definitions
-
-- **backend-socket/**:
-  - Manages real-time WebSocket connections
-  - Implements chat functionality
-  - Manages real-time message broadcasting
-  - Uses Gunicorn with Eventlet for improved performance
 
 ## Development Guide
 
@@ -68,7 +55,7 @@ make migrate-apply
 
 ## Continuous Integration
 
-The project uses GitHub Actions for **CI/CD** processes to ensure code quality and reliability:
+The project uses GitHub Actions for **CI/CD** processes to ensure code reliability:
 
 ```bash
 # CI checks include:
@@ -80,5 +67,3 @@ The project uses GitHub Actions for **CI/CD** processes to ensure code quality a
 
 - **Location**: `.github/workflows/docker-image.yml`
 - **Trigger**: Automatically runs on push to main branch and pull requests
-
-
