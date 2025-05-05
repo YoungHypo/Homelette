@@ -133,12 +133,8 @@ This project was originally developed by a team of students at UCSB. It is now m
 
 ## Original Contributors
 
-### Frontend
 - Jonathan Herring - @jonathan-herring
 - Collin Qian - @CollinQ
-- Haibo Yang - @YoungHypo
-
-### Backend
 - Allen Qiu - @aqiu04
 - Amy Wang - @awaang
 - Jason Vu - @Firoc
