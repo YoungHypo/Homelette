@@ -8,8 +8,14 @@ This service focuses on maintaining **WebSocket** connections and processing rea
 - **Flask**: Lightweight web framework serving as the foundation
 - **Flask-SocketIO**: Extension that provides WebSocket support
 - **Redis**: Used as a message broker for scaling across multiple instances
-- **Eventlet**: WSGI server optimized for WebSocket connections
+- **Gunicorn+Eventlet**: Production-ready WSGI server optimized for WebSocket connections
 - **SQLAlchemy**: ORM for database model access (shared with API service)
+
+## Deployment
+
+- **Port**: Service exposed on port 5002
+- **Socket Path**: WebSocket connections available at `/socket`
+- **Performance**: Uses Gunicorn with Eventlet workers for improved connection handling
 
 ## WebSocket Event API
 
@@ -17,7 +23,7 @@ This service focuses on maintaining **WebSocket** connections and processing rea
 
 | Event | Payload | Description |
 |-------|---------|-------------|
-| `connect` | `{ token: "JWT_TOKEN" }` | Establishes WebSocket connection using JWT authentication |
+| `connect` | `{ token: "JWT_TOKEN" }` (via URL query parameter) | Establishes WebSocket connection using JWT authentication |
 | `disconnect` | None | Terminates WebSocket connection |
 
 ### User Status Events
@@ -52,7 +58,8 @@ This service focuses on maintaining **WebSocket** connections and processing rea
 
 ## Notes
 
-- This service is designed to work behind an **Nginx** proxy
+- This service is directly exposed on port 5002 without a reverse proxy
 - Multiple instances can be deployed with **Redis** as the message queue
-- No direct API endpoints are exposed - all communication is through WebSocket events
+- Connects with the socket path `/socket` (not `/socket.io`)
+- JWT token is passed as a URL query parameter: `http://localhost:5002?token=<JWT_TOKEN>`
 - Database models are shared with the API service, but **migrations** should be performed via the API service
