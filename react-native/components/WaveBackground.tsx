@@ -10,9 +10,9 @@ export function WaveBackground() {
       <Svg height="100%" width="100%" style={StyleSheet.absoluteFill}>
         <Defs>
           <LinearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-            <Stop offset="0" stopColor="#D3D3D3" stopOpacity="1" />
-            <Stop offset="0.5" stopColor="#A9A9A9" stopOpacity="1" />
-            <Stop offset="1" stopColor="#808080" stopOpacity="1" />
+            <Stop offset="0" stopColor="#A5D8FF" stopOpacity="1" />
+            <Stop offset="0.5" stopColor="#7EC8F5" stopOpacity="1" />
+            <Stop offset="1" stopColor="#4AAFED" stopOpacity="1" />
           </LinearGradient>
         </Defs>
         <Path
@@ -35,7 +35,7 @@ export function WaveBackground() {
             L0 ${height}
             Z
           `}
-          fill="#A9A9A9"
+          fill="#7EC8F5"
           opacity="0.4"
         />
         <Path
@@ -47,7 +47,7 @@ export function WaveBackground() {
             L0 ${height}
             Z
           `}
-          fill="#808080"
+          fill="#61B8EE"
           opacity="0.3"
         />
         <Path
@@ -60,7 +60,7 @@ export function WaveBackground() {
             L0 ${height}
             Z
           `}
-          fill="#696969"
+          fill="#4AAFED"
           opacity="0.2"
         />
         <Path
@@ -72,7 +72,7 @@ export function WaveBackground() {
             L${width} ${height}
             Z
           `}
-          fill="#505050"
+          fill="#3DA0DB"
           opacity="0.4"
         />
       </Svg>

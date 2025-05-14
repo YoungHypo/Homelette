@@ -20,20 +20,10 @@ def register():
         if field not in data:
             return jsonify({"error": f"Missing required field: {field}"}), 400
     
-    # verify email format
-    try:
-        email_validator.validate_email(data['email'])
-    except email_validator.EmailNotValidError as e:
-        return jsonify({"error": str(e)}), 400
-    
     # check if email already exists
     # SELECT * FROM users WHERE email = 'user@example.com' LIMIT 1;
     if User.query.filter_by(email=data['email']).first():
         return jsonify({"error": "Email already registered"}), 409
-    
-    # verify password strength
-    if len(data['password']) < 8:
-        return jsonify({"error": "Password must be at least 8 characters long"}), 400
     
     # create user
     try:
